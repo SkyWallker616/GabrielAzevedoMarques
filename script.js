@@ -103,4 +103,17 @@ document.querySelectorAll('.card, .education-item, .project-item, .award-item, .
       el.classList.add('fade-in');
       io.observe(el);
     }
+
+    const menuBtn = document.getElementById("menuToggle");
+const nav = document.querySelector(".nav-links");
+
+menuBtn.addEventListener("click", () => {
+  menuBtn.classList.toggle("open");
+  nav.classList.toggle("open");
+  document.body.style.overflow = nav.classList.contains("open") ? "hidden" : "auto";
+});
+
+
   });
+
+  
