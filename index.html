@@ -1,169 +1,153 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel Azevedo Marques - Currículo</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Gabriel Azevedo Marques — Currículo</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Currículo acadêmico e profissional de Gabriel Azevedo Marques — publicações, projetos, prêmios, formação e contato." />
+    <meta name="author" content="Gabriel Azevedo Marques" />
+
+    <!-- Open Graph (simples) -->
+    <meta property="og:title" content="Gabriel Azevedo Marques — Currículo" />
+    <meta property="og:description" content="Currículo acadêmico e profissional de Gabriel Azevedo Marques" />
+    <meta property="og:image" content="1762041967173.jpg" />
+
+    <!-- Fonts & icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- static blue & white theme - dynamic background removed -->
-    <header>
+    <!-- dark-mode toggle button -->
+    <button id="darkModeToggle" class="dark-toggle" aria-label="Alternar modo escuro">
+        <i class="bi bi-moon-stars-fill"></i>
+    </button>
+
+    <header id="top" class="site-header">
         <div class="header-container">
             <div class="header-left">
-                <img src="1762041967173.jpg" alt="eu" class="profile-img">
+                
                 <div class="header-info">
-                    <h1 class="fade-in">Gabriel Azevedo Marques</h1>
+                    <h1>Gabriel Azevedo Marques</h1>
+                    <p class="header-sub">Pesquisador • Desenvolvedor • Cientista de Dados</p>
                 </div>
             </div>
-            <div class="header-right">
-                <div class="Nav1">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="#Formacao" class="nav-link">Formação</a>
-                    <a href="#Publicacoes" class="nav-link">Publicações</a>
-                    <a href="#Projetos" class="nav-link">Projetos</a>
-                    <a href="#Premios" class="nav-link">Prêmios</a>
-                </div>
-            </div>
+
+            <nav class="Nav1" aria-label="Navegação principal">
+                <a href="#top">Home</a>
+                <a href="#Formacao">Formação</a>
+                <a href="#Publicacoes">Publicações</a>
+                <a href="#Projetos">Projetos</a>
+                <a href="#Premios">Prêmios</a>
+            </nav>
         </div>
     </header>
 
-    <!-- RESUMO PROFISSIONAL / HERO SECTION -->
-    <section class="hero-section fade-in">
+    <section class="hero-section">
         <div class="hero-content">
             <div class="hero-text">
-                <h2 class="section-title-hero">Olá! Eu sou</h2>
-                <h1 class="hero-title">Gabriel Azevedo Marques</h1>
-                <p class="hero-subtitle">Pesquisador • Desenvolvedor • Entusiasta de Tecnologia</p>
-                <p class="hero-description">
-                    Técnico em Desenvolvimento de Sistemas com experiência em infraestrutura, suporte N2 e pesquisa em inteligência artificial, ciência de dados e engenharia de software.
-                </p>
+                <p class="eyebrow">Olá! Eu sou</p>
+                <h2 class="hero-title">Gabriel Azevedo Marques</h2>
+                <p class="hero-subtitle">Técnico em Desenvolvimento de Sistemas • Pesquisador em IA</p>
+                <p class="hero-description">Pesquisador com publicações Qualis A, trabalhando com redes neurais, análise de colaboração científica e desenvolvimento de aplicações web.</p>
+
                 <div class="hero-tags">
-                    <span class="tag">IA & Machine Learning</span>
+                    <span class="tag">Machine Learning</span>
+                    <span class="tag">IA Generativa</span>
                     <span class="tag">Ciência de Dados</span>
-                    <span class="tag">Web Development</span>
+                    <span class="tag">Web Dev</span>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="1762041967173.jpg" alt="Gabriel Azevedo Marques" class="hero-img">
+
+            <div class="hero-photo-wrapper">
+                <img src="1762041967173.jpeg" alt="Gabriel Azevedo Marques" class="hero-img" />
             </div>
         </div>
     </section>
 
     <main>
-        <!-- FORMAÇÃO ACADÊMICA -->
         <section id="Formacao" class="section-container">
-            <h1 class="section-title">Formação Acadêmica/Titulação</h1>
-            
-            <div class="education-item slide-in">
+            <h2 class="section-title">Formação Acadêmica</h2>
+
+            <div class="education-item">
                 <div class="education-year">2025</div>
                 <div class="education-content">
-                    <h3>Graduação em andamento em Computação</h3>
-                    <p class="institution">Instituto Federal de Brasília, IFB, Brasil</p>
+                    <h3>Graduação — Tecnologias para Internet</h3>
+                    <p>Instituto Federal de Brasília (IFB)</p>
                 </div>
             </div>
 
-            <div class="education-item slide-in">
+            <div class="education-item">
                 <div class="education-year">2024</div>
                 <div class="education-content">
-                    <h3>Graduação em andamento em Ciências da Computação</h3>
-                    <p class="institution">Centro Universitário Estácio Brasília, Estácio Brasília, Brasil</p>
+                    <h3>Graduação — Ciências da Computação (em andamento)</h3>
+                    <p>Centro Universitário Estácio Brasília</p>
                 </div>
             </div>
 
-            <div class="education-item slide-in">
-                <div class="education-year">2024 - 2025</div>
+            <div class="education-item">
+                <div class="education-year">2024 — 2025</div>
                 <div class="education-content">
-                    <h3>Curso Técnico/Profissionalizante em Desenvolvimento de Sistemas</h3>
-                    <p class="institution">Instituto Federal de Brasília, IFB, Brasil</p>
+                    <h3>Técnico em Desenvolvimento de Sistemas</h3>
+                    <p>Instituto Federal de Brasília (IFB)</p>
                 </div>
             </div>
         </section>
 
-        <!-- PUBLICAÇÕES -->
         <section id="Publicacoes" class="section-container">
-            <h1 class="section-title">Publicações</h1>
-            <div class="row g-3">
-                <div class="col-12 col-md-6">
-                    <div class="publicacao-destaque card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title h5">Colaborações Interinstitucionais no IHC: um Panorama do Último Quinquênio (2020-2024)</h2>
-                            <p class="card-text">Apresentação em congresso internacional sobre Interação Humano-Computador (IHC). Este trabalho apresenta uma visão panorâmica das colaborações interinstitucionais no IHC no período 2020–2024.</p>
-                            <a href="https://sol.sbc.org.br/index.php/ihc_estendido/article/view/37748" target="_blank" class="btn btn-primary doi-link">Acessar Artigo</a>
-                        </div>
-                    </div>
-                </div>
+            <h2 class="section-title">Publicações</h2>
 
-                <div class="col-12 col-md-6">
-                    <div class="publicacao-destaque card h-100">
-                        <div class="card-body">
-                            <h2 class="card-title h5">A Evolução das Colaborações Científicas no WebMedia: Um Estudo de 15 Anos (2010-2024)</h2>
-                            <p class="card-text">Este trabalho apresenta uma análise bibliométrica e de redes sociais aplicada ao estudo das colaborações científicas no WebMedia no período de 2010 a 2024.</p>
-                            <a href="https://sol.sbc.org.br/index.php/webmedia/article/view/37942" target="_blank" class="btn btn-primary doi-link">Acessar Artigo</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="cards-row">
+                <article class="card publicacao-card">
+                    <h3>Colaborações Interinstitucionais no IHC (2020–2024)</h3>
+                    <p>Panorama das colaborações no IHC ao longo do último quinquênio.</p>
+                    <p><a href="https://sol.sbc.org.br/index.php/ihc_estendido/article/view/37748" target="_blank" rel="noopener" class="btn">Acessar Artigo</a></p>
+                </article>
+
+                <article class="card publicacao-card">
+                    <h3>Evolução das Colaborações no WebMedia (2010–2024)</h3>
+                    <p>Análise bibliométrica das redes de colaboração científica no WebMedia (2010–2024).</p>
+                    <p><a href="https://sol.sbc.org.br/index.php/webmedia/article/view/37942" target="_blank" rel="noopener" class="btn">Acessar Artigo</a></p>
+                </article>
             </div>
         </section>
 
-        <!-- PROJETOS -->
         <section id="Projetos" class="section-container">
-            <h1 class="section-title">Projetos</h1>
-            
-            <div class="project-item fade-in">
-                <h2>Sistema Web para Avaliação de Modelos Generativos de Dados e Redes Neurais Artificiais para Classificação de Fake News na Web</h2>
-                <p>Este trabalho investiga o uso de dados sintéticos gerados por técnicas de modelagem generativa combinadas com redes neurais artificiais para melhorar a detecção de fake news.</p>
+            <h2 class="section-title">Projetos</h2>
+
+            <div class="project-item card">
+                <h3>Avaliação de Modelos Generativos e RNAs para Fake News</h3>
+                <p>Uso de dados sintéticos e redes neurais artificiais para melhorar a detecção de fake news.</p>
             </div>
         </section>
 
-        <!-- PRÊMIOS E TÍTULOS -->
         <section id="Premios" class="section-container">
-            <h1 class="section-title">Prêmios e Títulos</h1>
-            
-            <div class="award-item slide-in">
-                    <div class="award-image">
-                        <img src="hackathon2025curicaca.png" alt="Hackathon Festival Curicaca 2025" class="award-img">
-                    </div>
-                    <div class="award-content-text">
-                        <div class="award-year">2025</div>
-                        <div class="award-content">
-                            <h3>Hackathon</h3>
-                            <p class="award-place">Festival Curicaca</p>
-                        </div>
-                    </div>
+            <h2 class="section-title">Prêmios e Títulos</h2>
+
+            <div class="award-item">
+                <img src="hackathon2025curicaca.png" alt="Hackathon Curicaca 2025" class="award-img" />
+                <h3>Hackathon — Festival Curicaca (2025)</h3>
             </div>
         </section>
     </main>
 
-    <footer class="fade-in">
-        <div class="footer-content">
-                <div class="footer-info">
-                <p>&copy; 2025@Gabriel Azevedo Marques</p>
-                <p>Contato: 
-                    <a class="email-link" href="mailto:gabrielzvd616@gmail.com" aria-label="Enviar email para gabrielzvd616@gmail.com">
-                        <!-- inline SVG mail icon -->
-                        <svg class="icon-mail" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" role="img" aria-hidden="true" focusable="false">
-                            <path d="M2 6.5A2.5 2.5 0 0 1 4.5 4h15A2.5 2.5 0 0 1 22 6.5v11A2.5 2.5 0 0 1 19.5 20h-15A2.5 2.5 0 0 1 2 17.5v-11z" stroke="#ffffff" stroke-width="0" fill="#ffffff" opacity="0.0"></path>
-                            <path d="M3 7.75L12 13l9-5.25" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                            <rect x="3" y="6" width="18" height="12" rx="2" stroke="#ffffff" stroke-width="1.2" fill="none"/>
-                        </svg>
-                        <span class="email-text">gabrielzvd616@gmail.com</span>
-                    </a>
-                </p>
-                <p>
-                    <a href="https://www.linkedin.com/in/gabriel-azevedo-marques-b402b0269/" target="_blank" class="social-link"><i class="bi bi-linkedin"></i> LinkedIn</a> •
-                    <a href="https://www.instagram.com/gabrielzvdm/" target="_blank" class="social-link"><i class="bi bi-instagram"></i> Instagram</a>
-                </p>
-            </div>
-            <button id="backToTopBtn" class="back-to-top" title="Voltar ao topo">
-                <a href="index.html">↑ Topo</a>
-            </button>
+    <footer>
+        <div class="footer-inner">
+            <p>&copy; 2025 Gabriel Azevedo Marques</p>
+            <p>Contato: <a href="mailto:gabrielzvd616@gmail.com">gabrielzvd616@gmail.com</a></p>
+            <p>
+                <a href="https://www.linkedin.com/in/gabriel-azevedo-marques-b402b0269/" target="_blank" rel="noopener">LinkedIn</a>
+                •
+                <a href="https://www.instagram.com/gabrielzvdm/" target="_blank" rel="noopener">Instagram</a>
+            </p>
         </div>
     </footer>
+
+    <!-- main script -->
+    <script src="script.js"></script>
 </body>
 </html>
