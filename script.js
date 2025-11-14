@@ -1,101 +1,106 @@
-/* ============================================================
-   SMOOTH SCROLL
-   ============================================================ */
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', e => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    });
-});
-
-/* ============================================================
-   DARK MODE (Auto + Toggle + Persistência)
-   ============================================================ */
+// ===== NAVBAR RESPONSIVA =====
+const menuBtn = document.getElementById("menuToggle");
+const navList = document.querySelector(".nav-links");
 const body = document.body;
-const toggleBtn = document.getElementById("darkModeToggle");
 
-// aplica estado salvo
-const savedMode = localStorage.getItem("dark-mode");
+// abrir/fechar menu
+menuBtn.addEventListener("click", () => {
+  navList.classList.toggle("open");
+  menuBtn.classList.toggle("open");
 
-if (savedMode === "dark") {
-    body.classList.add("dark-mode");
-} else if (savedMode === "light") {
-    body.classList.remove("dark-mode");
+  // trava background quando menu está aberto
+  if (navList.classList.contains("open")) {
+    body.style.overflow = "hidden";
+  } else {
+    body.style.overflow = "";
+  }
+});
+
+// fechar ao clicar em item
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navList.classList.remove("open");
+    menuBtn.classList.remove("open");
+    body.style.overflow = "";
+  });
+});
+
+// fechar ao clicar fora
+document.addEventListener("click", (e) => {
+  if (!navList.contains(e.target) && !menuBtn.contains(e.target)) {
+    navList.classList.remove("open");
+    menuBtn.classList.remove("open");
+    body.style.overflow = "";
+  }
+});
+
+
+// ===== SMOOTH SCROLL =====
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault();
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+
+// ===== DARK MODE (AUTO + TOGGLE) =====
+const toggle = document.getElementById('darkModeToggle');
+const root = document.documentElement;
+
+const saved = localStorage.getItem('gabriel_dark');
+
+if (saved === '1') {
+  body.classList.add('dark-mode');
+} else if (saved === '0') {
+  body.classList.remove('dark-mode');
 } else {
-    // primeira visita → seguir sistema
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (prefersDark) body.classList.add("dark-mode");
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    body.classList.add('dark-mode');
+    localStorage.setItem('gabriel_dark', '1');
+  }
 }
 
-// alterna modo
-toggleBtn.addEventListener("click", () => {
-    const isDark = body.classList.toggle("dark-mode");
-    localStorage.setItem("dark-mode", isDark ? "dark" : "light");
-    updateCSSVariables(isDark);
+toggle.addEventListener('click', () => {
+  const active = body.classList.toggle('dark-mode');
+  localStorage.setItem('gabriel_dark', active ? '1' : '0');
+  applyTheme();
 });
 
-// atualiza variáveis CSS
-function updateCSSVariables(isDark) {
-    const root = document.documentElement;
-
-    if (isDark) {
-        root.style.setProperty("--bg", "#0b0f14");
-        root.style.setProperty("--text", "#eaeaea");
-        root.style.setProperty("--card", "#0f1620");
-        root.style.setProperty("--border", "#18202a");
-    } else {
-        root.style.setProperty("--bg", "#ffffff");
-        root.style.setProperty("--text", "#0e1730");
-        root.style.setProperty("--card", "#ffffff");
-        root.style.setProperty("--border", "#e6eef8");
-    }
+function applyTheme() {
+  if (body.classList.contains('dark-mode')) {
+    root.style.setProperty('--bg', '#0b0f14');
+    root.style.setProperty('--text', '#eaeaea');
+    root.style.setProperty('--card', '#0f1620');
+    root.style.setProperty('--border', '#18202a');
+  } else {
+    root.style.setProperty('--bg', '#ffffff');
+    root.style.setProperty('--text', '#0e1730');
+    root.style.setProperty('--card', '#ffffff');
+    root.style.setProperty('--border', '#e6eef8');
+  }
 }
+applyTheme();
 
-// aplica no carregamento
-updateCSSVariables(body.classList.contains("dark-mode"));
 
-/* ============================================================
-   ANIMAÇÕES SUAVES (FADE-IN)
-   ============================================================ */
-const observer = new IntersectionObserver(
-    entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-            }
-        });
-    },
-    { threshold: 0.15 }
-);
-
-// aplica animação a tudo que precisa
-document.querySelectorAll(
-    ".fade-in, .card, .education-item, .project-item, .award-item, .hero-title"
-).forEach(el => {
-    if (!el.classList.contains("fade-in")) {
-        el.classList.add("fade-in");
+// ===== FADE-IN ANIMATIONS =====
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      io.unobserve(entry.target);
     }
-    observer.observe(el);
-});
+  });
+}, { threshold: 0.12 });
 
-/* ============================================================
-   HEADER FIXO (SUAVE)
-   ============================================================ */
-let lastScroll = 0;
-const header = document.querySelector(".site-header");
-
-window.addEventListener("scroll", () => {
-    const current = window.pageYOffset;
-
-    if (current > lastScroll && current > 80) {
-        header.classList.add("hide-header");
-    } else {
-        header.classList.remove("hide-header");
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+document.querySelectorAll('.card, .education-item, .project-item, .award-item, .hero-title')
+  .forEach(el => {
+    if (!el.classList.contains('fade-in')) {
+      el.classList.add('fade-in');
+      io.observe(el);
     }
-
-    lastScroll = current;
-});
+  });
