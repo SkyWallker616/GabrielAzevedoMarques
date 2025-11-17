@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Gabriel Azevedo Marques — Currículo</title>
 
+    <!-- Search engines / PWA -->
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1f4ed8">
+    <link rel="alternate" hreflang="pt-BR" href="https://gabrielazevedomarques.onrender.com/">
+
     <!-- SEO -->
     <meta name="description" content="Currículo acadêmico e profissional de Gabriel Azevedo Marques — publicações, projetos, prêmios, formação e contato." />
     <meta name="author" content="Gabriel Azevedo Marques" />
@@ -227,8 +232,15 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+        <noscript>
+            <meta http-equiv="refresh" content="0;url=#" />
+        </noscript>
 </head>
 <body>
+        <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
     <!-- dark-mode toggle button -->
     <button id="darkModeToggle" class="dark-toggle" aria-label="Alternar modo escuro">
         <i class="bi bi-moon-stars-fill"></i>
@@ -259,11 +271,11 @@
         </div>
     </header>
 
-    <section class="hero-section">
+    <section class="hero-section" aria-labelledby="hero-heading">
         <div class="hero-content">
             <div class="hero-text">
                 <p class="eyebrow">Olá! Eu sou</p>
-                <h2 class="hero-title">Gabriel Azevedo Marques</h2>
+                <h2 id="hero-heading" class="hero-title">Gabriel Azevedo Marques</h2>
                 <p class="hero-subtitle">Técnico em Desenvolvimento de Sistemas • Pesquisador</p>
                 <p class="hero-description">Pesquisador com publicações Qualis A, trabalhando com redes neurais, análise de colaboração científica e desenvolvimento de aplicações web.</p>
 
@@ -297,10 +309,13 @@
                                 -->
             </div>
 
-            <div class="hero-photo-wrapper">
+            <figure class="hero-photo-wrapper">
                 <!-- IC Chip with image -->
                 <div class="ic-chip-wrapper">
                     <img src="1762041967173.jpeg" alt="Gabriel Azevedo Marques" class="hero-img" />
+                </div>
+                <figcaption class="sr-only">Foto de Gabriel Azevedo Marques — pesquisador e desenvolvedor</figcaption>
+            </figure>
                     <!-- Animated wires/traces from chip (inside chip wrapper so wires stay clipped behind image) -->
                     <svg class="ic-wires" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">
                   <!-- Top-left wire -->
@@ -333,7 +348,7 @@
         </div>
     </section>
 
-    <main>
+    <main id="main-content">
         <section id="Formacao" class="section-container">
             <h2 class="section-title">Formação Acadêmica</h2>
 
@@ -445,4 +460,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-google-site-verification: google373ecd16fd8a5c4a.html

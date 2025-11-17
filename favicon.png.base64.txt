@@ -1,0 +1,5 @@
+# Minimal 1x1 transparent PNG (base64)
+# Decode to create `favicon.png` with PowerShell:
+# powershell -Command "[System.Convert]::FromBase64String((Get-Content -Raw 'favicon.png.base64.txt' | Select-String -NotMatch '^#' | Out-String)) | Set-Content -Path 'favicon.png' -Encoding Byte"
+
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=

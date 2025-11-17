@@ -383,7 +383,5 @@ function createFloatingCircuits() {
   }
 }
 createFloatingCircuits();
-  nav.classList.toggle("open");
-
-  document.body.style.overflow = nav.classList.contains("open") ? "hidden" : "auto";
+ 
 
