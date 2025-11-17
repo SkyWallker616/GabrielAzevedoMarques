@@ -191,7 +191,7 @@ document.querySelectorAll('.btn').forEach(btn => {
 function createFloatingComponents() {
   const container = document.body;
   const colors = ['#3b82f6', '#1f4ed8', '#60a5fa', '#0ea5e9'];
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 16; i++) {
     const comp = document.createElement('div');
     comp.className = 'floating-component';
     comp.style.left = Math.random() * 100 + '%';
@@ -247,7 +247,7 @@ createMotherboardGrid();
 // ===== ANIMATED CIRCUIT SVG BACKGROUND (enhanced) =====
 function createCircuitElements() {
   const container = document.body;
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 12; i++) {
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('class', 'circuit-svg');
     svg.setAttribute('viewBox', '0 0 400 300');
@@ -344,7 +344,7 @@ createFloatingChips();
 
 // ===== FLOATING CIRCUITS FROM HERO IMAGE =====
 function createFloatingCircuits() {
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 16; i++) {
     const circuitWrap = document.createElement('div');
     circuitWrap.className = 'floating-circuit-from-image';
     circuitWrap.style.left = Math.random() * 50 + 25 + '%';
