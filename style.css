@@ -40,6 +40,8 @@ body{
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
+  position:relative;
+  overflow-x:hidden;
 }
 
 /* container padrão */
@@ -117,6 +119,37 @@ body{
 .Nav1 a:hover{
   background:rgba(31,78,216,0.06);
   color:var(--primary);
+}
+
+/* Hamburger button (hidden on desktop) */
+.menu-btn{
+  display:none;
+  width:44px;height:40px;
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+}
+.menu-btn span{
+  display:block;
+  width:26px;
+  height:3px;
+  background:var(--text);
+  border-radius:3px;
+  transition:transform .18s ease, opacity .18s ease;
+}
+.menu-btn.open span:nth-child(1){ transform:translateY(8px) rotate(45deg); }
+.menu-btn.open span:nth-child(2){ opacity:0; }
+.menu-btn.open span:nth-child(3){ transform:translateY(-8px) rotate(-45deg); }
+
+/* Mobile nav (hidden by default on small screens; opened by toggling .open) */
+.nav-links{
+  display:flex;
+}
+.nav-links.open{
+  display:block;
 }
 
 /* botão dark */
@@ -206,16 +239,306 @@ body{
   align-items:center;
   justify-content:center;
   min-width:0;
+  position:relative;
 }
-.hero-img{
-  width:320px;height:320px;
+
+/* IC Chip wrapper around image */
+.ic-chip-wrapper{
+  position:relative;
+  width:320px;
+  height:320px;
   border-radius:18px;
-  object-fit:cover;
-  border:6px solid var(--border);
-  box-shadow:0 18px 50px rgba(4,9,25,0.08);
-  transition:transform .35s ease;
+  overflow:hidden;
+  background:linear-gradient(135deg, #123166 0%, #0ea5e9 100%);
+  border:4px solid rgba(14,165,233,0.9);
+  box-shadow:0 0 36px rgba(14,165,233,0.35), inset 0 8px 24px rgba(255,255,255,0.06);
 }
-.hero-img:hover{transform:translateY(-6px) scale(1.01);}
+
+.ic-chip-wrapper::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255,255,255,0.05) 19px, rgba(255,255,255,0.05) 20px),
+    repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.05) 19px, rgba(255,255,255,0.05) 20px);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* pins on IC chip (corners) */
+.ic-chip-wrapper::after{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:
+    radial-gradient(circle 8px at 10px 10px, rgba(14,165,233,0.3), transparent),
+    radial-gradient(circle 8px at calc(100% - 10px) 10px, rgba(14,165,233,0.3), transparent),
+    radial-gradient(circle 8px at 10px calc(100% - 10px), rgba(14,165,233,0.3), transparent),
+    radial-gradient(circle 8px at calc(100% - 10px) calc(100% - 10px), rgba(14,165,233,0.3), transparent);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Decorative pin strips for IC chip (left/right) */
+.ic-chip-wrapper .chip-pins{
+  position:absolute;
+  top:12px;
+  bottom:12px;
+  left:0;
+  right:0;
+  pointer-events:none;
+  z-index:2;
+}
+.ic-chip-wrapper .chip-pins::before,
+.ic-chip-wrapper .chip-pins::after{
+  content:'';
+  position:absolute;
+  width:10px;
+  top:0;
+  bottom:0;
+  background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.12) 0px, rgba(255,255,255,0.12) 6px, transparent 6px, transparent 18px);
+  border-radius:4px;
+}
+.ic-chip-wrapper .chip-pins::before{left:-6px}
+.ic-chip-wrapper .chip-pins::after{right:-6px}
+
+/* small inner bevel to emphasize chip edge */
+.ic-chip-wrapper{
+  background-clip:padding-box;
+}
+
+.hero-img{
+  width:320px;
+  height:320px;
+  border-radius:16px;
+  object-fit:cover;
+  position:relative;
+  z-index:3;
+  box-shadow:inset 0 0 20px rgba(0,0,0,0.2);
+}
+.hero-img:hover{transform:scale(1.02);}
+
+/* Animated wires from IC chip */
+.ic-wires{
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:1; /* behind the image but inside wrapper */
+  pointer-events:none;
+}
+
+.wire-line{
+  animation:wireGlow 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 8px rgba(14,165,233,0.8));
+}
+
+.wire-node{
+  animation:nodeGlow 2s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px rgba(59,130,246,0.9));
+}
+
+@keyframes wireGlow{
+  0%, 100%{
+    stroke-width:2;
+    opacity:0.8;
+  }
+  50%{
+    stroke-width:3;
+    opacity:1;
+  }
+}
+
+@keyframes nodeGlow{
+  0%, 100%{
+    r:5px;
+    fill:#3b82f6;
+    opacity:0.9;
+  }
+  50%{
+    r:8px;
+    fill:#0ea5e9;
+    opacity:1;
+  }
+}
+
+/* HERO STATS (counters) */
+.hero-stats{
+  display:flex;
+  gap:18px;
+  margin-top:18px;
+  align-items:center;
+}
+.stat{display:flex;flex-direction:column;align-items:center;padding:6px 12px}
+.stat-number{font-size:26px;font-weight:800;color:var(--primary);}
+.stat-label{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* Button ripple */
+.btn{position:relative;overflow:hidden}
+.btn .ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,0.35);animation:ripple 600ms linear}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+
+/* Card hover (consistent lift) */
+.card{transition:transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;opacity:1 !important;background-color:var(--card) !important;position:relative;z-index:6}
+.card:hover{transform:translateY(-6px);box-shadow:0 22px 60px rgba(4,9,25,0.12)}
+
+/* Floating component trees animation */
+.floating-component{
+  position:fixed;
+  font-size:48px;
+  opacity:0.02;
+  pointer-events:none;
+  z-index:0;
+  animation:floatAnim 12s infinite ease-in-out;
+  color:var(--primary);
+}
+@keyframes floatAnim{
+  0%{transform:translateY(0) translateX(0) rotate(0deg)}
+  25%{transform:translateY(-40px) translateX(20px) rotate(90deg)}
+  50%{transform:translateY(-80px) translateX(-30px) rotate(180deg)}
+  75%{transform:translateY(-40px) translateX(50px) rotate(270deg)}
+  100%{transform:translateY(0) translateX(0) rotate(360deg)}
+}
+
+/* Motherboard background grid */
+.motherboard-grid{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:0;
+  opacity:0.03;
+}
+
+/* SVG Animated Circuits (enhanced motherboard style) */
+.circuit-svg{
+  position:fixed;
+  opacity:0.04;
+  pointer-events:none;
+  z-index:0;
+  animation:circuitFloat 18s infinite ease-in-out;
+  filter:drop-shadow(0 0 8px rgba(59,130,246,0.15));
+}
+@keyframes circuitFloat{
+  0%{transform:translateY(0) translateX(0);opacity:0.02}
+  50%{transform:translateY(-40px) translateX(20px);opacity:0.05}
+  100%{transform:translateY(0) translateX(0);opacity:0.02}
+}
+
+.circuit-node{
+  animation:nodePulse 4s infinite ease-in-out;
+}
+@keyframes nodePulse{
+  0%{r:5;opacity:0.7}
+  50%{r:9;opacity:1}
+  100%{r:5;opacity:0.7}
+}
+
+/* Floating IC chips from hero image */
+.floating-chip{
+  position:fixed;
+  pointer-events:none;
+  z-index:0;
+  animation:chipFloat 12s infinite ease-in-out;
+  filter:drop-shadow(0 0 12px rgba(59,130,246,0.6));
+}
+@keyframes chipFloat{
+  0%{transform:translate(0,0) rotateZ(0deg);opacity:0.08}
+  25%{transform:translate(15px,-30px) rotateZ(5deg);opacity:0.12}
+  50%{transform:translate(30px,-60px) rotateZ(10deg);opacity:0.15}
+  75%{transform:translate(15px,-40px) rotateZ(5deg);opacity:0.12}
+  100%{transform:translate(0,0) rotateZ(0deg);opacity:0.08}
+}
+
+/* Floating circuits from hero image */
+.floating-circuit-from-image{
+  position:fixed;
+  pointer-events:none;
+  z-index:0;
+  animation:circuitFromImageFloat 14s infinite ease-in-out;
+  filter:drop-shadow(0 0 10px rgba(14,165,233,0.5));
+}
+@keyframes circuitFromImageFloat{
+  0%{transform:translate(0,0) rotateZ(0deg) scale(0.8);opacity:0.05}
+  25%{transform:translate(20px,-25px) rotateZ(-3deg) scale(0.95);opacity:0.08}
+  50%{transform:translate(40px,-60px) rotateZ(5deg) scale(1);opacity:0.12}
+  75%{transform:translate(25px,-45px) rotateZ(-2deg) scale(0.95);opacity:0.08}
+  100%{transform:translate(0,0) rotateZ(0deg) scale(0.8);opacity:0.05}
+}
+
+.floating-circuit-node{
+  animation:circuitNodePulse 3s infinite ease-in-out;
+}
+@keyframes circuitNodePulse{
+  0%{r:4;opacity:0.6}
+  50%{r:7;opacity:1}
+  100%{r:4;opacity:0.6}
+}
+
+/* NAVIGATION FADE (when clicking nav links) */
+.nav-fade-temp{
+  opacity:0;
+  transform:translateY(12px);
+  transition:opacity .45s ease, transform .45s ease;
+}
+.nav-fade-show{
+  opacity:1;
+  transform:none;
+}
+
+/* ===========================
+   SKILLS / CONHECIMENTOS
+   =========================== */
+.skills-section{margin-top:14px;text-align:left}
+.skills-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px}
+.skills{display:flex;flex-wrap:wrap;gap:10px}
+.skill-chip{background:linear-gradient(180deg,rgba(31,78,216,0.06),rgba(31,78,216,0.02));padding:8px 12px;border-radius:999px;font-weight:700;color:var(--primary);font-size:13px}
+
+@media (max-width:560px){
+  .skills-section{text-align:center}
+  .skills{justify-content:center}
+}
+
+/* card que contém os chips de conhecimentos, seguindo o padrão visual dos projetos */
+.skills-card{
+  max-width:900px;
+  margin:12px auto 0 auto;
+  padding:18px;
+  border-radius:14px;
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  text-align:center;
+}
+
+/* Force solid backgrounds and stacking for key content blocks */
+.skills-card,
+.education-item,
+.award-item,
+.publicacao-card{
+  background-color:var(--card) !important;
+  opacity:1 !important;
+  position:relative;
+  z-index:10;
+}
+
+.award-img{
+  position:relative;
+  z-index:11;
+  background-color:var(--card);
+}
+
+/* garante título com espaçamento e alinhamento semelhante ao da imagem fornecida */
+.section-title{display:inline-block;font-size:30px;font-weight:800;padding:6px 14px;border-left:6px solid var(--primary);text-align:left;margin-bottom:18px}
 
 /* ===========================
    SECTION TITLE
@@ -232,6 +555,11 @@ body{
   border-left:6px solid var(--primary);
   text-align:left;
 }
+/* Espaçamento entre título da seção e o conteúdo abaixo */
+.section-title{
+  margin-bottom:18px;
+  display:inline-block;
+}
 
 /* ===========================
    FORMAÇÃO
@@ -239,10 +567,10 @@ body{
 .education-item{
   display:flex;
   gap:18px;
-  align-items:center;
+  align-items:flex-start;
   background:var(--card);
   border:1px solid var(--border);
-  padding:18px;
+  padding:20px;
   border-radius:var(--radius);
   margin:14px auto;
   max-width:900px;
@@ -261,30 +589,57 @@ body{
 .cards-row{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:18px;
+  gap:24px; /* mais espaço entre cards */
+  row-gap:24px;
   max-width:1100px;
   margin:0 auto;
 }
 .publicacao-card{
   background:var(--card);
   border:1px solid var(--border);
-  padding:18px;
+  padding:20px;
   border-radius:var(--radius);
   text-align:left;
+  display:flex;
+  flex-direction:column;
 }
-.publicacao-card h3{margin-bottom:8px}
-.publicacao-card p{color:var(--muted)}
+.publicacao-card h3{margin-bottom:12px}
+.publicacao-card p{color:var(--muted);flex-grow:1;margin-bottom:16px}
 
 /* botão */
 .btn{
   display:inline-block;
   background:var(--primary);
   color:#fff;
-  padding:8px 14px;
+  padding:10px 18px;
   border-radius:10px;
   text-decoration:none;
   font-weight:700;
   border:none;
+  transition:all .2s ease;
+}
+.btn:hover{
+  background:#1a3ba8;
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(31,78,216,0.3);
+}
+
+/* Botões em cards de publicação - layout horizontal simétrico */
+.publicacao-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.project-item .btn,
+.project-item .disabled{
+  margin-top:auto;
+}
+
+.btn.disabled{
+  cursor:not-allowed;
+  opacity:0.6;
+  pointer-events:none;
 }
 
 /* ===========================
@@ -293,11 +648,24 @@ body{
 .project-item{
   max-width:900px;
   margin:0 auto;
-  padding:20px;
+  padding:24px;
   border-radius:var(--radius);
   background:var(--card);
   border:1px solid var(--border);
   text-align:center;
+  display:flex;
+  flex-direction:column;
+}
+/* Espaçamento vertical entre projetos (aplica também a educação/prêmios) */
+.project-item,
+.education-item,
+.award-item{
+  margin-bottom:20px;
+}
+
+/* Publicações em layout empilhado (mobile) e espaçamento extra entre cards */
+.publicacao-card{
+  margin-bottom:0; /* grid gap controla o espaçamento horizontal/vertical */
 }
 
 /* ===========================
@@ -306,8 +674,13 @@ body{
 .award-item{
   max-width:900px;
   margin:0 auto;
-  padding:20px;
+  padding:24px;
   text-align:center;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  display:flex;
+  flex-direction:column;
 }
 .award-img{
   width:100%;
@@ -315,6 +688,32 @@ body{
   border-radius:12px;
   border:1px solid var(--border);
   margin:0 auto 12px;
+}
+
+/* ===========================
+   CONTATOS
+   =========================== */
+.contacts-section{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  max-width:1100px;
+  margin:0 auto;
+  padding:18px 22px;
+}
+.contacts-left{flex:1;text-align:left}
+.contacts-right{flex:1;text-align:right}
+.contacts-right .social-list{list-style:none;display:flex;gap:12px;justify-content:flex-end;padding:0;margin:0}
+.social-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;background:rgba(31,78,216,0.08);color:var(--primary);text-decoration:none;border:1px solid rgba(31,78,216,0.08);transition:all .12s}
+.social-btn i{font-size:18px}
+.social-btn:hover{transform:translateY(-4px);background:var(--primary);color:#fff}
+
+@media (max-width:980px){
+  .contacts-section{flex-direction:column;align-items:center;text-align:center}
+  .contacts-right{order:2}
+  .contacts-left{order:1}
+  .contacts-right .social-list{justify-content:center}
 }
 
 /* ===========================
@@ -408,6 +807,43 @@ footer{
   /* melhora leitura em telas pequenas */
   body{
     padding-bottom:30px;
+  }
+
+  /* mobile: esconder links e mostrar hamburger */
+  .Nav1{
+    display:none;
+  }
+  .menu-btn{
+    display:flex;
+  }
+
+  /* menu aberto: mostrar menu full-width abaixo do header */
+  .nav-links.open{
+    position:fixed;
+    top:64px;
+    right:12px;
+    left:12px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:12px 18px;
+    z-index:200;
+    display:block;
+  }
+  .nav-links.open a{
+    display:block;
+    padding:12px 8px;
+    border-radius:8px;
+  }
+}
+
+/* Ensure hamburger appears earlier on narrower devices (fixes iPhone layouts) */
+@media (max-width:780px){
+  .Nav1{
+    display:none;
+  }
+  .menu-btn{
+    display:flex;
   }
 }
 
