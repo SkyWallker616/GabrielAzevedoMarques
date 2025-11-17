@@ -173,9 +173,23 @@ body{
 /* Mobile nav (hidden by default on small screens; opened by toggling .open) */
 .nav-links{
   display:flex;
+  position:static;
+  flex-direction:row;
+  background:transparent;
+  padding:0;
 }
 .nav-links.open{
-  display:block;
+  display:flex;
+  position:absolute;
+  top:100%;
+  left:0;
+  right:0;
+  flex-direction:column;
+  background:var(--card);
+  padding:16px 22px;
+  border-bottom:1px solid var(--border);
+  box-shadow:0 8px 16px rgba(0,0,0,0.1);
+  z-index:99;
 }
 
 /* botão dark */
@@ -204,6 +218,8 @@ body{
    =========================== */
 .hero-section{
   padding:48px 0 28px;
+  padding-top:120px; /* increased space for sticky header */
+  margin-top:0;
 }
 
 .hero-content{
@@ -213,6 +229,9 @@ body{
   max-width:1200px;
   margin:0 auto;
   padding:0 22px;
+  overflow:hidden;
+  position:relative;
+  z-index:10;
 }
 
 .hero-text{flex:1;}
@@ -845,16 +864,19 @@ footer{
 
   /* menu aberto: mostrar menu full-width abaixo do header */
   .nav-links.open{
-    position:fixed;
-    top:64px;
-    right:12px;
-    left:12px;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    width:100%;
     background:var(--card);
-    border:1px solid var(--border);
-    border-radius:12px;
+    border-bottom:1px solid var(--border);
+    border-radius:0;
     padding:12px 18px;
-    z-index:200;
-    display:block;
+    z-index:99;
+    display:flex;
+    flex-direction:column;
+    box-shadow:0 8px 16px rgba(0,0,0,0.1);
   }
   .nav-links.open a{
     display:block;
